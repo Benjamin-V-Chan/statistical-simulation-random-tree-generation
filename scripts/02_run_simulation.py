@@ -1,7 +1,6 @@
 import argparse
 import csv
 import os
-import collections
 from collections import deque
 from scripts._01_generate_random_tree import generate_random_tree  # adjust import path
 
