@@ -78,3 +78,60 @@ project-root/
 ├── requirements.txt
 └── README.md
 ```
+
+---
+
+## Usage
+
+### 1. Setup the Project:
+
+Clone the repository.
+Ensure you have Python installed.
+Install required dependencies using the requirements.txt file:
+
+```bash
+pip install -r requirements.txt
+```
+
+### 2. Generate Random Trees:
+
+```bash
+python scripts/01_generate_trees.py --nodes 100 --count 500 --out outputs/raw_trees.json
+```
+
+* `--nodes`: Number of nodes per tree
+* `--count`: Number of trees to generate
+
+### 3. Compute Tree Statistics:
+
+```bash
+python scripts/02_compute_statistics.py --in outputs/raw_trees.json --out outputs/tree_stats.csv
+```
+
+* Reads the generated trees and computes height, diameter, average degree, and ASPL for each tree.
+
+### 4. Visualize Results:
+
+```bash
+python scripts/03_visualize_results.py --in outputs/tree_stats.csv --outdir outputs/figures
+```
+
+* Creates histograms for height, diameter, average degree, and average shortest-path length.
+
+---
+
+## Requirements
+
+* Python 3.8+
+
+Python Libraries:
+
+* networkx
+* pandas
+* matplotlib
+
+Install them using:
+
+```bash
+pip install -r requirements.txt
+```
