@@ -120,3 +120,18 @@ python scripts/03_visualize_results.py --in outputs/tree_stats.csv --outdir outp
 
 ---
 
+## Requirements
+
+* Python 3.8+
+
+Python Libraries:
+
+* networkx
+* pandas
+* matplotlib
+
+Install them using:
+
+```bash
+pip install -r requirements.txt
+```
