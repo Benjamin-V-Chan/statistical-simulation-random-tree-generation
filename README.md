@@ -59,3 +59,23 @@ This project statistically analyzes how these quantities behave across thousands
 
 ---
 
+## Folder Structure
+
+```
+project-root/
+├── scripts/
+│   ├── 01_generate_trees.py
+│   ├── 02_compute_statistics.py
+│   └── 03_visualize_results.py
+├── outputs/
+│   ├── raw_trees.json
+│   ├── tree_stats.csv
+│   └── figures/
+│       ├── height_hist.png
+│       ├── diameter_hist.png
+│       ├── avg_degree_hist.png
+│       └── avg_path_length_hist.png
+├── requirements.txt
+└── README.md
+```
+
