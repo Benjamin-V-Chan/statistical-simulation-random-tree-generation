@@ -26,3 +26,19 @@ def prufer_to_tree(prufer_seq):
         adj[v].append(u)
     return adj
 
+def generate_random_tree(n):
+    seq = generate_prufer_sequence(n)
+    return prufer_to_tree(seq)
+
+if __name__ == "__main__":
+    p = argparse.ArgumentParser()
+    p.add_argument("n", type=int, help="number of nodes")
+    p.add_argument("--out", default="outputs/tree.csv", help="where to save adjacency")
+    args = p.parse_args()
+    os.makedirs(os.path.dirname(args.out), exist_ok=True)
+    tree = generate_random_tree(args.n)
+    with open(args.out, "w", newline="") as f:
+        w = csv.writer(f)
+        w.writerow(["node", "neighbors"])
+        for node, nbrs in tree.items():
+            w.writerow([node, " ".join(map(str,nbrs))])
