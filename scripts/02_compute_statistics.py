@@ -23,3 +23,21 @@ def compute_metrics(tree):
         "avg_path_length": round(avg_path_length, 4)
     }
 
+def main():
+    p = argparse.ArgumentParser()
+    p.add_argument("--in", dest="inp", type=str, default="outputs/raw_trees.json")
+    p.add_argument("--out", type=str, default="outputs/tree_stats.csv")
+    args = p.parse_args()
+
+    os.makedirs(os.path.dirname(args.out), exist_ok=True)
+    with open(args.inp) as f:
+        trees = json.load(f)
+
+    rows = [compute_metrics(t) for t in trees]
+    with open(args.out, "w", newline="") as f:
+        writer = csv.DictWriter(f, fieldnames=rows[0].keys())
+        writer.writeheader()
+        writer.writerows(rows)
+
+if __name__ == "__main__":
+    main()
