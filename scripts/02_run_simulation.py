@@ -1,23 +1,27 @@
-# scripts/02_run_simulations.py
+import argparse
+import csv
+import os
+import collections
+from collections import deque
+from scripts._01_generate_random_tree import generate_random_tree  # adjust import path
 
-"""
-PSEUDOCODE:
-
-# 1. IMPORT argparse, csv, os, statistics, multiprocessing (optional), and
-#    from 01_generate_random_tree import generate_random_tree
-# 2. FUNCTION compute_metrics(adj):
-#      - pick node 1 as root; do BFS to get height (max distance)
-#      - do BFS twice to compute diameter: from arbitrary node,
-#        find farthest node A; then BFS from A to farthest distance
-#      - compute average branching factor: (sum(degree-1) / n)
-#      - return dict: {"n":n, "height":h, "diameter":d, "avg_branch":b}
-# 3. FUNCTION run_for(n, reps):
-#      - for i in range(reps):
-#           • adj = generate_random_tree(n)
-#           • yield compute_metrics(adj)
-# 4. FUNCTION main():
-#      - parse args: ns (list of ints), reps (int), --out
-#      - open CSV writer with headers
-#      - for each n in ns: for each result in run_for(n, reps): write row
-"""
+def compute_metrics(adj):
+    n = len(adj)
+    def bfs(start):
+        dist = {start:0}
+        q = deque([start])
+        while q:
+            u = q.popleft()
+            for v in adj[u]:
+                if v not in dist:
+                    dist[v] = dist[u] + 1
+                    q.append(v)
+        return dist
+    d1 = bfs(1)
+    height = max(d1.values())
+    far = max(d1, key=d1.get)
+    d2 = bfs(far)
+    diameter = max(d2.values())
+    avg_branch = sum(len(adj[u]) - 1 for u in adj) / n
+    return {"n": n, "height": height, "diameter": diameter, "avg_branch": avg_branch}
 
